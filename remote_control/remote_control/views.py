@@ -84,9 +84,9 @@ def run(request):
 		elif action == 'camdown':
 			cam.turn_down(20)
 		elif action == 'snap':
-			os.system('fswebcam -d /dev/video0 -s 20 --no-banner --save ~/Pictures/image.jpeg')
+			os.system('fswebcam -d /dev/video0 -s 20 --no-banner --save /home/pi/Pictures/image.jpeg')
 			try:
-				with open('~/Pictures/image.jpeg', "rb") as f:
+				with open('/home/pi/Pictures/image.jpeg', "rb") as f:
 					print("Done", file=sys.stderr)
 					return HttpResponse(f.read(), content_type="image/jpeg")
 			except IOError as e:
