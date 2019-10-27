@@ -83,11 +83,15 @@ def run(request):
 		elif action == 'camdown':
 			cam.turn_down(20)
 		elif action == 'snap':
+			print("Snap0!")
 			os.system('fswebcam -d /dev/video0 -s 20 --no-banner --png --save ~/Pictures/image.png')
 			# time.sleep(2)
 			red = Image.new(mode="RGB", size=(200, 200))
+			print("Snap1!")
 			response = HttpResponse(content_type="image/jpeg")
+			print("Snap2!")
 			red.save(response, "JPEG")
+			print("Snap3!")
 			return response
 			try:
 				with open('~/Pictures/image.png', "rb") as f:
