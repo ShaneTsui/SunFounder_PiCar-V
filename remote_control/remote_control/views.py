@@ -85,6 +85,10 @@ def run(request):
 		elif action == 'snap':
 			os.system('fswebcam -d /dev/video0 -s 20 --no-banner --png --save ~/Pictures/image.png')
 			# time.sleep(2)
+			red = Image.new(mode="RGB", size=(200, 200))
+			response = HttpResponse(content_type="image/jpeg")
+			red.save(response, "JPEG")
+			return response
 			try:
 				with open('~/Pictures/image.png', "rb") as f:
 					print("Responsing...")
