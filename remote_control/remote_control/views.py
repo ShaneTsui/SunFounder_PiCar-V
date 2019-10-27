@@ -89,8 +89,9 @@ def run(request):
 				with open('~/Pictures/image.jpeg', "rb") as f:
 					print("Done", file=sys.stderr)
 					return HttpResponse(f.read(), content_type="image/jpeg")
-			except IOError:
+			except IOError as e:
 				print("Fail", file=sys.stderr)
+				print(e)
 				red = Image.new(mode = "RGB", size = (200, 200))
 				response = HttpResponse(content_type="image/jpeg")
 				red.save(response, "JPEG")
