@@ -87,6 +87,7 @@ def run(request):
 			# time.sleep(2)
 			try:
 				with open('~/Pictures/image.png', "rb") as f:
+					print("Responsing...")
 					return HttpResponse(f.read(), content_type="image/jpeg")
 			except IOError:
 				red = Image.new(mode = "RGB", size = (200, 200))
