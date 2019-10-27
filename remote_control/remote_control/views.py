@@ -87,11 +87,10 @@ def run(request):
 			os.system('fswebcam -d /dev/video0 -s 20 --no-banner --save /home/pi/Pictures/image.jpeg')
 			try:
 				with open('/home/pi/Pictures/image.jpeg', "rb") as f:
-					print("Done", file=sys.stderr)
 					return HttpResponse(f.read(), content_type="image/jpeg")
 			except IOError as e:
-				print("Fail", file=sys.stderr)
 				print(e)
+				print("Failed", file=sys.stderr)
 				red = Image.new(mode = "RGB", size = (200, 200))
 				response = HttpResponse(content_type="image/jpeg")
 				red.save(response, "JPEG")
