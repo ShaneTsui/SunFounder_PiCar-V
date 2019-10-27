@@ -10,6 +10,7 @@
 **********************************************************************
 '''
 import os
+import time
 
 from PIL import Image
 from django.shortcuts import render_to_response
@@ -83,11 +84,12 @@ def run(request):
 			cam.turn_down(20)
 		elif action == 'snap':
 			os.system('fswebcam -s 20 ~/Pictures/image.png')
+			time.sleep(1)
 			try:
 				with open('~/Pictures/image.png', "rb") as f:
 					return HttpResponse(f.read(), content_type="image/jpeg")
 			except IOError:
-				red = Image.new('RGBA', (1, 1), (255, 0, 0, 0))
+				red = Image.new(mode = "RGB", size = (200, 200))
 				response = HttpResponse(content_type="image/jpeg")
 				red.save(response, "JPEG")
 				return response
