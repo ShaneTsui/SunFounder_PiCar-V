@@ -9,7 +9,9 @@
 * Update      : Cavon    2016-09-13    New release
 **********************************************************************
 '''
+import os
 
+from PIL import Image
 from django.shortcuts import render_to_response
 from .driver import camera, stream
 from picar import back_wheels, front_wheels
@@ -78,7 +80,18 @@ def run(request):
 		elif action == 'camup':
 			cam.turn_up(20)
 		elif action == 'camdown':
-			cam.turn_down(20)	
+			cam.turn_down(20)
+		elif action == 'snap':
+			os.system('fswebcam -s 20 ~/Pictures/image.png')
+			try:
+				with open('~/Pictures/image.png', "rb") as f:
+					return HttpResponse(f.read(), content_type="image/jpeg")
+			except IOError:
+				red = Image.new('RGBA', (1, 1), (255, 0, 0, 0))
+				response = HttpResponse(content_type="image/jpeg")
+				red.save(response, "JPEG")
+				return response
+
 	if 'speed' in request.GET:
 		speed = int(request.GET['speed'])
 		if speed < 0:
@@ -89,6 +102,7 @@ def run(request):
 		if bw_status != 0:
 			bw.speed = SPEED
 		debug = "speed =", speed
+
 	host = stream.get_host().decode('utf-8').split(' ')[0]
 	return render_to_response("run.html", {'host': host})
 

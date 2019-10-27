@@ -669,7 +669,7 @@ class QueryImage:
 		self.host = host
 		self.port = port
 		self.argv = argv
-	
+
 	def queryImage(self):
 		"""Query Image
 
