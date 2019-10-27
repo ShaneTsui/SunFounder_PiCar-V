@@ -84,7 +84,7 @@ def run(request):
 			cam.turn_down(20)
 		elif action == 'snap':
 			os.system('fswebcam -s 20 ~/Pictures/image.png')
-			time.sleep(1)
+			time.sleep(5)
 			try:
 				with open('~/Pictures/image.png', "rb") as f:
 					return HttpResponse(f.read(), content_type="image/jpeg")
